@@ -1,6 +1,9 @@
 package org.example.sayhello;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus; //response entitiy ile alakalı
+import org.springframework.http.ResponseEntity; // response entitiy ile alakalı
+import org.springframework.web.bind.annotation.*; //spring framework'ü için gerekli kütüphaneleri ekliyoruz
+
 
 @RestController
 public class HelloController {
@@ -38,6 +41,16 @@ public class HelloController {
     @PostMapping("/hello-json")
     public String helloFromJson(@RequestBody HelloRequest request) {
         return "Hello " + request.getName();
+    }
+
+    @PostMapping("/hello-json-response")
+    public ResponseEntity<HelloResponse> helloJsonResponse() {
+
+        HelloResponse response = new HelloResponse("Hello from JSON Response!");
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
 
